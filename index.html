@@ -380,8 +380,8 @@
     window.addEventListener('resize', resize);
 
     const ripples = [];
-    const MAX_RIPPLES = 80;
-    const SPAWN_INTERVAL = 28; // ms 节流：每次移动尽量多生成
+    const MAX_RIPPLES = 40;
+    const SPAWN_INTERVAL = 90; // ms 节流：每次移动后等 90ms 才生成下一波
 
     // 配色：以水色为主，点缀阳光色（白/金），更像湖面波光
     const COLORS = [
@@ -403,8 +403,8 @@
       if (now - lastSpawn < SPAWN_INTERVAL) return;
       lastSpawn = now;
 
-      // 每次生成 2~3 个涟漪（错开大小和速度），形成多层波纹
-      const count = 2 + Math.floor(Math.random() * 2);
+      // 每次生成 1~2 个涟漪（错开大小和速度），形成多层波纹
+      const count = 1 + Math.floor(Math.random() * 2);
       for (let j = 0; j < count; j++) {
         if (ripples.length >= MAX_RIPPLES) ripples.shift();
 
@@ -413,7 +413,7 @@
         ripples.push({
           x: e.clientX + (Math.random() - 0.5) * 6,
           y: e.clientY + (Math.random() - 0.5) * 6,
-          radius: -Math.random() * 18, // 让有些涟漪"已经开始扩散"
+          radius: 2 + Math.random() * 8, // 从正的小半径开始，避免负半径报错
           maxRadius: 180 + Math.random() * 160, // 180 ~ 340 px（更远）
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
           opacity: 0.7 + Math.random() * 0.25,
@@ -432,6 +432,7 @@
       for (let i = ripples.length - 1; i >= 0; i--) {
         const r = ripples[i];
         r.radius += r.speed;
+        if (r.radius < 0) r.radius = 0; // 保护：半径永不为负，避免 arc() 抛错
         r.opacity -= r.fadeRate;
 
         if (r.opacity <= 0 || r.radius > r.maxRadius) {
