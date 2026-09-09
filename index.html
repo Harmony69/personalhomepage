@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿B · 个人主页</title>
+<meta name="description" content="阿B的个人主页：水利工程设计师，喜欢折腾各种小工具。">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #fafaf9;
+    --bg-card: #ffffff;
+    --text: #1c1917;
+    --text-muted: #57534e;
+    --text-soft: #a8a29e;
+    --primary: #0e7490;
+    --primary-soft: #ecfeff;
+    --primary-deep: #155e75;
+    --border: #e7e5e4;
+    --tag-bg: #ecfeff;
+    --tag-text: #0e7490;
+    --tag-border: #a5f3fc;
+    --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #0e2840 url('./A_beautiful_anime_style_water__2026-09-09T03-14-41.png') no-repeat center top/cover fixed;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", "Helvetica Neue", sans-serif;
+    line-height: 1.75;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 全屏蒙版：让背景图氛围化、不抢戏 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(8, 40, 60, 0.35) 0%, rgba(8, 40, 60, 0.55) 45%, rgba(8, 40, 60, 0.78) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    height: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.32);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8, 40, 60, 0.92) 0%, rgba(8, 40, 60, 0.4) 45%, rgba(8, 40, 60, 0.15) 78%);
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 24px 20px 30px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    margin-bottom: 14px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+    margin-bottom: 6px;
+  }
+
+  .hero .tagline {
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero .meta-row span { display: flex; align-items: center; gap: 4px; }
+
+  /* ===== Sections（玻璃拟态）===== */
+  section {
+    position: relative;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  /* 关于我：淡蓝玻璃 */
+  section.about {
+    background: linear-gradient(135deg, rgba(207, 250, 254, 0.65), rgba(165, 243, 252, 0.45));
+  }
+
+  /* 工作 & 专业：深青玻璃（白字） */
+  section.work {
+    background: linear-gradient(135deg, rgba(14, 116, 144, 0.7), rgba(8, 145, 178, 0.5));
+    border-color: rgba(165, 243, 252, 0.35);
+    color: #f0f9ff;
+  }
+
+  /* 兴趣 & 在折腾：浅青玻璃 */
+  section.interests {
+    background: linear-gradient(135deg, rgba(165, 243, 252, 0.55), rgba(103, 232, 249, 0.4));
+  }
+
+  /* 联系方式：蓝白玻璃 */
+  section.contact {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(240, 249, 255, 0.45));
+  }
+
+  section h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  section h2::before {
+    content: "";
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+
+  /* 深色玻璃上的标题色 */
+  section.work h2 { color: #cffafe; }
+  section.work h2::before { background: #cffafe; }
+
+  section p {
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  /* 深色玻璃上的段落色 */
+  section.work p { color: rgba(240, 249, 255, 0.92); }
+
+  section p + p { margin-top: 12px; }
+
+  /* ===== Tags ===== */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--tag-border);
+  }
+
+  /* 兴趣板块：tag 用白底深色，在浅青玻璃上更醒目 */
+  .interests .tag {
+    background: rgba(255, 255, 255, 0.75);
+    color: #0c4a6e;
+    border-color: rgba(12, 74, 110, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* ===== Contact ===== */
+  .contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--text);
+  }
+
+  .icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--primary-soft);
+    color: var(--primary-deep);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .contact-list .label {
+    color: var(--text-soft);
+    margin-right: 6px;
+    font-size: 13px;
+  }
+
+  /* ===== Footer ===== */
+  footer {
+    text-align: center;
+    padding: 24px 0 8px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+  }
+
+  footer a {
+    color: #67e8f9;
+    text-decoration: none;
+    border-bottom: 1px dotted #67e8f9;
+  }
+
+  footer .heart { color: #f87171; }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 600px) {
+    body { padding: 24px 14px 40px; }
+    .hero { height: 320px; border-radius: 12px; }
+    .hero h1 { font-size: 30px; }
+    .hero .tagline { font-size: 14px; }
+    section { padding: 22px 20px; border-radius: 12px; }
+    .hero .meta-row { font-size: 12px; gap: 12px; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+  <main class="container">
+
+    <!-- ===== Hero ===== -->
+    <header class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="hero-tag">✨ 水做的设计师</span>
+        <h1>阿B</h1>
+        <p class="tagline">水利工程设计师 · 折腾各种小工具的人</p>
+        <div class="meta-row">
+          <span>📍 中国</span>
+          <span>·</span>
+          <span>🛠 设计院画图人</span>
+          <span>·</span>
+          <span>🎯 写点小脚本过日子</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== About ===== -->
+    <section class="about">
+      <h2>关于我</h2>
+      <p>设计院里画图的人，长期跟 CAD、纵断面、横断面打交道。日常最大的乐趣是把繁琐的事情自动化 —— 写个小脚本省半小时、做个工具省一周、偶尔心血来潮还会做个小游戏自娱自乐。</p>
+      <p>最近一边在学习 ZDM 操作手册，一边在做柬埔寨班迭省散丹棉灌溉项目的中英文翻译。一个是技术、一个是语言，但底层都是把复杂的事拆清楚。</p>
+    </section>
+
+    <!-- ===== Work ===== -->
+    <section class="work">
+      <h2>工作 & 专业</h2>
+      <p>水利工程设计师，主要做灌溉、堤防、水库类项目的设计。日常重度依赖 ZDM CAD 辅助设计软件处理大量纵断面、横断面、管线数据 —— 命令敲得越熟，就越想搞明白它背后在做什么。</p>
+      <p>也做一些中译英的工作，目前主要在推进柬埔寨水利项目可研报告的英文翻译。</p>
+    </section>
+
+    <!-- ===== Interests ===== -->
+    <section class="interests">
+      <h2>兴趣 & 在折腾</h2>
+      <div class="tags">
+        <span class="tag">CAD 设计自动化</span>
+        <span class="tag">中英翻译</span>
+        <span class="tag">折腾各种小工具</span>
+        <span class="tag">阅读技术手册</span>
+        <span class="tag">脚本编程</span>
+        <span class="tag">效率提升</span>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="contact">
+      <h2>联系方式</h2>
+      <ul class="contact-list">
+        <li>
+          <span class="icon">@</span>
+          <span><span class="label">邮箱</span><a href="mailto:your-email@example.com" style="color:var(--text);text-decoration:none;">your-email@example.com</a> <span style="color:var(--text-soft);font-size:13px;">(占位，待补充)</span></span>
+        </li>
+        <li>
+          <span class="icon">微</span>
+          <span><span class="label">微信</span>阿B（添加请备注一下）</span>
+        </li>
+        <li>
+          <span class="icon">网</span>
+          <span><span class="label">个人作品</span>暂无，欢迎来玩我做的<a href="https://github.com" target="_blank" rel="noopener" style="color:var(--primary);">贪吃蛇</a> 🎮</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer>
+      <p>© 2026 阿B · 用 GitHub Pages 搭建 · 改字体改配色改内容都随你</p>
+    </footer>
+
+  </main>
+</body>
+</html>
